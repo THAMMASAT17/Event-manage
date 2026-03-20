@@ -1,0 +1,33 @@
+<div class="d-flex" style="height: 100vh; overflow: hidden;">
+  
+  <div class="d-flex flex-column p-3 text-white" style="width: 280px; background-color: #1A1A1A;">
+    <a routerLink="/admin" class="d-flex align-items-center mb-4 text-white text-decoration-none">
+      <span class="fs-4 fw-bold"><span style="color: #E20613;">ADMIN</span> PANEL</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item mb-2">
+        <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link text-white">📊 Dashboard</a>
+      </li>
+      <li class="nav-item mb-2">
+        <a routerLink="/admin/events" routerLinkActive="active" class="nav-link text-white">📅 จัดการ Events</a>
+      </li>
+      <li class="nav-item mb-2">
+        <a routerLink="/admin/venues" routerLinkActive="active" class="nav-link text-white">📍 จัดการ Venues (สถานที่)</a>
+      </li>
+      <li class="nav-item mb-2">
+        <a routerLink="/admin/tickets" routerLinkActive="active" class="nav-link text-white">🎟️ จัดการ Tickets (ตั๋ว)</a>
+      </li>
+      <li class="nav-item mb-2">
+        <a routerLink="/admin/organizers" routerLinkActive="active" class="nav-link text-white">🏢 จัดการ Organizers</a>
+      </li>
+    </ul>
+    <hr>
+    <a routerLink="/" class="btn btn-outline-light w-100">⬅️ กลับหน้าร้าน (User)</a>
+  </div>
+
+  <div class="flex-grow-1 p-4" style="background-color: #F4F4F4; overflow-y: auto;">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

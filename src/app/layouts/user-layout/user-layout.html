@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg py-3 shadow-sm" style="background-color: #1A1A1A;">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-4 text-white" routerLink="/">
+      <span style="color: #E20613;">THAI</span>TICKET
+    </a>
+    
+    <div class="collapse navbar-collapse justify-content-end">
+      <ul class="navbar-nav align-items-center">
+        <li class="nav-item">
+          <a class="nav-link text-white me-3" routerLink="/">หน้าแรก (Home)</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white me-3" routerLink="/my-tickets">ตั๋วของฉัน</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-sm fw-bold px-3" style="background-color: #E20613; color: white;" routerLink="/admin">
+            เข้าสู่โหมด Admin
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="min-vh-100">
+  <router-outlet></router-outlet>
+</div>
+
+<footer class="bg-dark text-white text-center py-4 mt-5">
+  <p class="mb-0 small">© 2026 ThaiTicket Event Management System. All rights reserved.</p>
+</footer>

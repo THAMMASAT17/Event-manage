@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+/* ธีมหลักสไตล์ ThaiTicketMajor */
+$primary-red: #E20613;
+$dark-black: #1A1A1A;
+$light-gray: #F4F4F4;
+$pure-white: #FFFFFF;
+
+body {
+  background-color: $light-gray;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: $dark-black;
+  margin: 0;
+  padding: 0;
+}
+
+/* ปรับแต่ง Scrollbar ให้ดูเรียบหรู */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: $primary-red; }

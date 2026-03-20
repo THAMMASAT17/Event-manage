@@ -1,0 +1,16 @@
+.fw-black { font-weight: 900; }
+.hover-link {
+  transition: all 0.2s;
+  &:hover {
+    color: #E20613 !important;
+    transform: translateX(-5px);
+  }
+}
+.btn-danger {
+  background-color: #E20613;
+  border-color: #E20613;
+  &:hover {
+    background-color: #b3050f;
+    transform: translateY(-2px);
+  }
+}
