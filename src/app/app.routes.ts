@@ -18,31 +18,39 @@ import { ManageTickets } from './pages/admin/manage-tickets/manage-tickets';
 import { ManageOrganizers } from './pages/admin/manage-organizers/manage-organizers';
 
 export const routes: Routes = [
-  // โซนของ User
+  // ==========================================
+  // 🟢 โซนของ User
+  // ==========================================
   {
     path: '',
     component: UserLayout,
     children: [
-      { path: '', component: Home },
-      { path: 'event/:id', component: EventDetail },
-      { path: 'booking/:id', component: SeatBooking },
-      { path: 'my-tickets', component: MyTickets }
+      { path: '', component: Home, title: 'หน้าแรก | ระบบจองตั๋ว' },
+      { path: 'event/:id', component: EventDetail, title: 'รายละเอียดกิจกรรม' },
+      { path: 'booking/:id', component: SeatBooking, title: 'จองตั๋วเข้าชม' },
+      { path: 'my-tickets', component: MyTickets, title: 'ตั๋วของฉัน' }
     ]
   },
 
-  // โซนของ Admin
+  // ==========================================
+  // 🔴 โซนของ Admin
+  // ==========================================
   {
     path: 'admin',
     component: AdminLayout,
     children: [
-      { path: '', component: Dashboard },
-      { path: 'events', component: ManageEvents },
-      { path: 'venues', component: ManageVenues },
-      { path: 'tickets', component: ManageTickets },
-      { path: 'organizers', component: ManageOrganizers }
+      // เปลี่ยนตรงนี้นิดหน่อย: ให้ redirect ไปที่ dashboard แทนการใช้ path ว่างตรงๆ
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, 
+      { path: 'dashboard', component: Dashboard, title: 'Admin | ภาพรวมระบบ' },
+      { path: 'events', component: ManageEvents, title: 'Admin | จัดการกิจกรรม' },
+      { path: 'venues', component: ManageVenues, title: 'Admin | จัดการสถานที่' },
+      { path: 'tickets', component: ManageTickets, title: 'Admin | จัดการตั๋ว' },
+      { path: 'organizers', component: ManageOrganizers, title: 'Admin | จัดการผู้จัดงาน' }
     ]
   },
 
-  // ถ้าพิมพ์ URL มั่ว ให้เด้งกลับไปหน้าแรก
+  // ==========================================
+  // ⛔ ถ้าพิมพ์ URL มั่ว ให้เด้งกลับไปหน้าแรก
+  // ==========================================
   { path: '**', redirectTo: '' }
 ];

@@ -1,1 +1,81 @@
-<p>manage-events works!</p>
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h3 class="fw-bold m-0"><i class="bi bi-calendar-event text-danger me-2"></i> จัดการกิจกรรม (Manage Events)</h3>
+      <p class="text-muted small mt-1">แสดงรายการกิจกรรมทั้งหมดในระบบ คุณสามารถเพิ่ม ลบ หรือแก้ไขได้ที่นี่</p>
+    </div>
+    
+    <button class="btn fw-bold shadow-sm" 
+            [ngClass]="showForm ? 'btn-secondary' : 'btn-danger'" 
+            (click)="toggleForm()">
+      <i class="bi" [ngClass]="showForm ? 'bi-arrow-left' : 'bi-plus-lg'"></i> 
+      {{ showForm ? 'กลับหน้ารายการ' : 'เพิ่มกิจกรรมใหม่' }}
+    </button>
+  </div>
+
+  <div class="text-center py-5" *ngIf="isLoading">
+    <div class="spinner-border text-danger" role="status"></div>
+  </div>
+
+  <div class="card border-0 shadow-sm" *ngIf="showForm && !isLoading">
+    <div class="card-body p-4 p-md-5">
+      <h4 class="fw-bold mb-4 border-bottom pb-3">รายละเอียดกิจกรรมใหม่</h4>
+      
+      <div class="row g-4">
+        <div class="col-md-8">
+          <label class="form-label fw-bold">ชื่องาน (Event Name) <span class="text-danger">*</span></label>
+          <input type="text" class="form-control form-control-lg" [(ngModel)]="formData.event_name" placeholder="ระบุชื่อกิจกรรม...">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label fw-bold">วันที่จัดงาน (Date) <span class="text-danger">*</span></label>
+          <input type="date" class="form-control form-control-lg" [(ngModel)]="formData.event_date">
+        </div>
+        <div class="col-12">
+          <label class="form-label fw-bold">รายละเอียด (Description)</label>
+          <textarea class="form-control" rows="4" [(ngModel)]="formData.description" placeholder="พิมพ์รายละเอียดงานตรงนี้..."></textarea>
+        </div>
+      </div>
+
+      <div class="mt-5 text-end">
+        <button class="btn btn-light btn-lg me-3 fw-bold" (click)="toggleForm()">ยกเลิก</button>
+        <button class="btn btn-danger btn-lg fw-bold px-5" (click)="saveEvent()" [disabled]="isSaving">
+          <span *ngIf="!isSaving"><i class="bi bi-save me-2"></i> บันทึกข้อมูล</span>
+          <span *ngIf="isSaving"><div class="spinner-border spinner-border-sm me-2"></div> กำลังบันทึก...</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card border-0 shadow-sm" *ngIf="!showForm && !isLoading">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="bg-light text-secondary">
+            <tr>
+              <th scope="col" class="py-3 px-4 text-center" style="width: 80px;">ID</th>
+              <th scope="col" class="py-3">ชื่องาน (Event Name)</th>
+              <th scope="col" class="py-3">วันที่จัดงาน</th>
+              <th scope="col" class="py-3 text-center" style="width: 150px;">จัดการ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of events">
+              <td class="px-4 text-center fw-bold text-muted">#{{ item.event_id }}</td>
+              <td class="fw-bold">{{ item.event_name }}</td>
+              <td><span class="badge bg-light text-dark border"><i class="bi bi-calendar me-1"></i> {{ item.event_date | date:'dd MMM yyyy' }}</span></td>
+              <td class="text-center">
+                <button class="btn btn-sm btn-outline-danger rounded-circle" title="ลบ" (click)="deleteEvent(item.event_id, item.event_name)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="events.length === 0">
+              <td colspan="4" class="text-center py-5 text-muted"><i class="bi bi-inbox fs-1 d-block mb-3"></i> ไม่มีข้อมูลกิจกรรมในระบบ</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,1 +1,60 @@
-<p>seat-booking works!</p>
+<div class="container mt-5 mb-5">
+  <a *ngIf="eventId" [routerLink]="['/event', eventId]" class="btn btn-light mb-4 shadow-sm fw-bold">
+    <i class="bi bi-arrow-left me-2"></i> กลับไปหน้ารายละเอียด
+  </a>
+
+  <div class="text-center py-5" *ngIf="isLoading">
+    <div class="spinner-border text-danger" role="status"></div>
+    <h5 class="mt-3 text-muted">กำลังโหลดผังที่นั่ง...</h5>
+  </div>
+
+  <div class="row g-4" *ngIf="!isLoading && event">
+    <div class="col-lg-8">
+      <div class="bg-dark text-white p-4 rounded-top">
+        <h3 class="fw-bold mb-1">เลือกประเภทบัตร</h3>
+        <p class="mb-0 text-white-50">{{ event.event_name }}</p>
+      </div>
+      <div class="bg-white border border-top-0 rounded-bottom p-4 shadow-sm">
+        <div class="card mb-3 border-0 bg-light" *ngFor="let ticket of tickets">
+          <div class="card-body d-flex justify-content-between align-items-center p-4">
+            <div>
+              <h4 class="fw-bold text-danger mb-1">{{ ticket.ticket_type }}</h4>
+              <p class="mb-0">ราคา: <span class="fw-bold fs-5">{{ ticket.price == 0 ? 'ฟรี' : (ticket.price | number:'1.2-2') }}</span> บาท</p>
+            </div>
+            <div class="d-flex align-items-center bg-white border rounded-pill px-2 py-1 shadow-sm">
+              <button class="btn btn-sm btn-light rounded-circle fw-bold" (click)="decreaseQty(ticket)" [disabled]="ticket.selectedQty === 0">-</button>
+              <span class="mx-3 fs-5 fw-bold" style="min-width: 24px; text-align: center;">{{ ticket.selectedQty }}</span>
+              <button class="btn btn-sm btn-light rounded-circle fw-bold" (click)="increaseQty(ticket)">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="text-center py-5" *ngIf="tickets.length === 0">
+          <h4 class="text-muted">ยังไม่เปิดจำหน่ายบัตร</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-lg sticky-top" style="top: 20px;">
+        <div class="card-body p-4 p-lg-5">
+          <h4 class="fw-bold border-bottom pb-3 mb-4">สรุปคำสั่งซื้อ</h4>
+          <div class="d-flex justify-content-between mb-3 text-secondary">
+            <span>จำนวนบัตรที่เลือก</span>
+            <span class="fw-bold text-dark fs-5">{{ totalQty }} ใบ</span>
+          </div>
+          <div class="d-flex justify-content-between mb-4 align-items-end">
+            <span class="text-muted fw-bold">ยอดรวมชำระ</span>
+            <span class="fw-bold text-danger" style="font-size: 2rem;">{{ totalPrice | number:'1.2-2' }}</span>
+          </div>
+          
+          <button class="btn btn-danger btn-lg w-100 fw-bold rounded-pill shadow-sm" 
+                  [disabled]="totalQty === 0 || isSubmitting" 
+                  (click)="confirmBooking()">
+            <span *ngIf="!isSubmitting">ยืนยันการสั่งซื้อ <i class="bi bi-check-circle ms-2"></i></span>
+            <span *ngIf="isSubmitting"><div class="spinner-border spinner-border-sm me-2"></div> กำลังประมวลผล...</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,46 +1,32 @@
-<div class="bg-black text-white text-center py-5 mb-5" style="border-bottom: 5px solid #E20613;">
-  <div class="container">
-    <h1 class="display-5 fw-bold text-uppercase">Exclusive <span style="color: #E20613;">Events</span></h1>
-    <p class="lead text-muted">จองตั๋วคอนเสิร์ตและอีเวนต์สุดพิเศษก่อนใคร</p>
-  </div>
-</div>
+<div class="container mt-5 mb-5">
+  <h2 class="fw-bold mb-4">🎈 กิจกรรมทั้งหมด (Upcoming Events)</h2>
 
-<div class="container mb-5">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h3 class="fw-bold m-0" style="color: #1A1A1A; border-left: 5px solid #E20613; padding-left: 12px;">
-      UPCOMING EVENTS
-    </h3>
+  <div class="text-center py-5" *ngIf="isLoading">
+    <div class="spinner-border text-danger" role="status"></div>
+    <p class="mt-3 text-muted">กำลังดึงข้อมูลกิจกรรม...</p>
   </div>
 
-  <div class="row g-4">
-    <div class="col-12 col-md-6 col-lg-3" *ngFor="let event of events">
-      <div class="card h-100 border-0 shadow-sm" style="border-radius: 6px; overflow: hidden; transition: transform 0.2s;">
-        
+  <div class="row g-4" *ngIf="!isLoading && events.length > 0">
+    <div class="col-md-6 col-lg-4" *ngFor="let item of events">
+      <div class="card h-100 shadow-sm border-0 transition-hover">
         <div class="bg-dark text-white d-flex align-items-center justify-content-center" style="height: 180px;">
-          <h5 class="text-uppercase m-0 opacity-75">{{ event.event_name }}</h5>
+          <h4 class="text-uppercase m-0 opacity-75">{{ item.event_name }}</h4>
         </div>
-        
-        <div class="card-body d-flex flex-column bg-white">
-          <h5 class="card-title fw-bold text-truncate" style="color: #1A1A1A;">
-            {{ event.event_name }}
-          </h5>
-          <p class="card-text text-muted small mb-2">
-            <i class="bi bi-calendar-event me-1"></i> 📅 {{ event.event_date | date:'dd MMM yyyy' }}
-          </p>
-          <p class="card-text text-muted small text-truncate mb-4">
-            {{ event.description }}
-          </p>
+        <div class="card-body p-4 d-flex flex-column">
+          <h5 class="fw-bold mb-3">{{ item.event_name }}</h5>
           
-          <a [routerLink]="['/event', event.event_id]" class="btn w-100 fw-bold mt-auto" 
-             style="background-color: #E20613; color: white; border-radius: 4px;">
-             BUY TICKET
+          <p class="text-muted small mb-1"><i class="bi bi-calendar me-2"></i> {{ item.event_date | date:'dd MMM yyyy' }}</p>
+          <p class="text-muted small mb-4"><i class="bi bi-geo-alt me-2"></i> {{ item.venue_name || 'รอประกาศ' }} ({{ item.city || '-' }})</p>
+          
+          <a [routerLink]="['/event', item.event_id]" class="btn btn-outline-danger w-100 mt-auto fw-bold rounded-pill">
+            ดูรายละเอียด
           </a>
         </div>
       </div>
     </div>
-    
-    <div *ngIf="events.length === 0" class="col-12 text-center py-5">
-      <p class="text-muted">กำลังโหลดข้อมูลอีเวนต์...</p>
-    </div>
+  </div>
+
+  <div class="text-center py-5 bg-light rounded" *ngIf="!isLoading && events.length === 0">
+    <h4 class="text-muted">ยังไม่มีกิจกรรมในขณะนี้</h4>
   </div>
 </div>

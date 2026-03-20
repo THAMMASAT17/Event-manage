@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-admin-layout',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './admin-layout.html',
-  styleUrl: './admin-layout.scss'
+  styles: [`
+    .sidebar { width: 260px; min-height: 100vh; }
+    .nav-link:hover { background-color: rgba(255,255,255,0.1); }
+    .active-link { background-color: #E20613 !important; font-weight: bold; }
+  `]
 })
-// แก้ชื่อคลาสตรงนี้ จาก AdminLayoutComponent เป็น AdminLayout
 export class AdminLayout {}

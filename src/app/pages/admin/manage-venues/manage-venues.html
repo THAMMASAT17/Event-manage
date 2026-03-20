@@ -1,1 +1,63 @@
-<p>manage-venues works!</p>
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold m-0">📍 จัดการสถานที่ (Venues)</h3>
+    <button class="btn btn-danger fw-bold" (click)="showForm = !showForm">
+      {{ showForm ? 'กลับ' : '+ เพิ่มสถานที่' }}
+    </button>
+  </div>
+
+  <div class="card border-0 shadow-sm mb-4" *ngIf="showForm">
+    <div class="card-body p-4">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label fw-bold">ชื่อสถานที่</label>
+          <input type="text" class="form-control" [(ngModel)]="formData.venue_name">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label fw-bold">เมือง/จังหวัด</label>
+          <input type="text" class="form-control" [(ngModel)]="formData.city">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label fw-bold">ความจุ (ที่นั่ง)</label>
+          <input type="number" class="form-control" [(ngModel)]="formData.capacity">
+        </div>
+        <div class="col-12">
+          <label class="form-label fw-bold">ที่อยู่แบบละเอียด</label>
+          <input type="text" class="form-control" [(ngModel)]="formData.address">
+        </div>
+        <div class="col-12 text-end">
+          <button class="btn btn-danger px-5" (click)='saveVenue()'>บันทึก</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card border-0 shadow-sm" *ngIf="!showForm">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="bg-light">
+          <tr>
+            <th class="px-4">ID</th>
+            <th>สถานที่</th>
+            <th>ที่ตั้ง</th>
+            <th>ความจุ</th>
+            <th class="text-center">จัดการ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let v of venues">
+            <td class="px-4">#{{ v.venue_id }}</td>
+            <td class="fw-bold">{{ v.venue_name }}</td>
+            <td>{{ v.city }}</td>
+            <td>{{ v.capacity | number }}</td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-outline-danger" (click)="deleteVenue(v.venue_id)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

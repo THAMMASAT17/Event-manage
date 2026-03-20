@@ -1,1 +1,30 @@
-<p>my-tickets works!</p>
+<div class="container mt-5 mb-5">
+  <div class="d-flex align-items-center mb-4">
+    <i class="bi bi-ticket-perforated fs-1 text-danger me-3"></i>
+    <h2 class="fw-bold mb-0">ตั๋วของฉัน (My Tickets)</h2>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-6" *ngFor="let item of myBookings">
+      <div class="card border-0 shadow-sm" style="border-left: 6px solid #E20613 !important;">
+        <div class="card-body p-4 d-flex justify-content-between align-items-center">
+          <div>
+            <span class="badge bg-success mb-2"><i class="bi bi-check-circle"></i> {{ item.status }}</span>
+            <h5 class="fw-bold">{{ item.event_name }}</h5>
+            <p class="text-muted small mb-1">วันที่: {{ item.date | date:'mediumDate' }}</p>
+            <p class="text-muted small mb-0">ประเภท: <strong>{{ item.ticket_type }}</strong> (จำนวน {{ item.qty }} ใบ)</p>
+          </div>
+          <div class="text-end">
+            <button class="btn btn-outline-dark btn-sm rounded-pill px-3">
+              <i class="bi bi-qr-code"></i> ดู E-Ticket
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-5 text-center">
+    <a routerLink="/" class="btn btn-light px-4">ค้นหากิจกรรมอื่นๆ เพิ่มเติม</a>
+  </div>
+</div>

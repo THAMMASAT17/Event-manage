@@ -1,16 +1,22 @@
-.fw-black { font-weight: 900; }
-.hover-link {
-  transition: all 0.2s;
-  &:hover {
-    color: #E20613 !important;
-    transform: translateX(-5px);
+.hero-section {
+  position: relative;
+  
+  // สร้างลาย Pattern บางๆ ทับบนพื้นหลัง Gradient
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 0);
+    background-size: 20px 20px;
+    opacity: 0.5;
+  }
+  
+  // ยกข้อความขึ้นมาให้อยู่เหนือ Pattern
+  > div {
+    z-index: 1;
   }
 }
-.btn-danger {
-  background-color: #E20613;
-  border-color: #E20613;
-  &:hover {
-    background-color: #b3050f;
-    transform: translateY(-2px);
-  }
+
+.card {
+  border-radius: 16px;
 }

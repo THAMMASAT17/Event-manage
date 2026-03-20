@@ -7,23 +7,29 @@ import { ApiService } from '../../../services/api';
   selector: 'app-home',
   standalone: true,
   imports: [CommonModule, RouterLink],
-  templateUrl: './home.html'
+  templateUrl: './home.html',
+  styleUrls: ['./home.scss']
 })
 export class Home implements OnInit {
   events: any[] = [];
+  isLoading: boolean = true;
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.apiService.getEvents().subscribe({
       next: (res: any) => {
-        // 🛡️ หัวใจสำคัญ: แกะเฉพาะ Array ออกมา
-        if (res && res.data && Array.isArray(res.data)) {
-          this.events = res.data;
-          console.log('✅ [Home] ข้อมูลเข้าสู่ตัวแปรแล้ว:', this.events);
+        // แกะกล่องเอาเฉพาะ data มาใช้อย่างสบายใจ
+        if (res && res.success) {
+          this.events = res.data; 
+          console.log('✅ โหลดหน้า Home สำเร็จ:', this.events);
         }
+        this.isLoading = false; // ปิด Loading เสมอ
       },
-      error: (err) => console.error('🚨 [Home] API Error:', err)
+      error: (err: any) => {
+        console.error('🚨 Error หน้า Home:', err);
+        this.isLoading = false; // ปิด Loading เสมอ
+      }
     });
   }
 }
